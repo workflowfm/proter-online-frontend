@@ -1,9 +1,10 @@
 import React from 'react';
+import BasicResults from './BasicResults';
 
 class ArrivalsBox extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {value: this.props.value, results: "No Results"};
+      this.state = {value: this.props.value, results: null};
       this.handleChange = this.handleChange.bind(this);
       this.response = ""
     }
@@ -53,7 +54,7 @@ class ArrivalsBox extends React.Component {
             </label>
             </fieldset>
         </form>
-        <p>{this.state.results}</p>
+        <BasicResults rawResults={this.state.results}/>
         </div>
       );
     }
