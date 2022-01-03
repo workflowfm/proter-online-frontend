@@ -28,7 +28,7 @@ class TaskBox extends React.Component {
     }
 
     buildJson() {
-      return "{\"name\": \"" + this.state.value1 + "\",\"duration\": " + this.state.value2 + ",\"cost\": " + this.state.value3 + ",\"resources\": \"" + this.state.value4 + ",\"priority\": " + this.state.value5 + "}";
+      return "{\"name\": \"" + this.state.value1 + "\",\"duration\": " + this.state.value2 + ",\"cost\": " + this.state.value3 + ",\"resources\": \"" + this.state.value4 + "\",\"priority\": " + this.state.value5 + "}";
     }
 
     

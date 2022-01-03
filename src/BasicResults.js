@@ -119,7 +119,7 @@ class BasicResults extends React.Component {
                         <td>{info.id}</td>
                         <td>{info.task}</td>
                         <td>{info.simulation}</td>
-                        <td>{info.priority}</td>
+                        <td>{this.priorityConverter(info.priority)}</td>
                         <td>{info.created}</td>
                         <td>{info.started}</td>
                         <td>{info.duration}</td>
@@ -157,6 +157,29 @@ class BasicResults extends React.Component {
                 
             </div>
         )
+    }
+
+    priorityConverter = (intPriority) => {
+        switch(intPriority) {
+            case 2:
+                return "Highest"
+                //break;
+            case 1:
+                return "High"
+                //break;
+            case 0:
+                return "Medium"
+                //break;
+            case -1:
+                return "Low"
+                //break;
+            case -2:
+                return "Lowest"
+                //break;
+            default:
+                return "Error"
+                //break;
+        }
     }
 
     render() {
