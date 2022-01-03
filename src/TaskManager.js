@@ -4,7 +4,7 @@ import TaskBox from './TaskBox';
 class TaskManager extends React.Component {
     constructor(props) {
       super(props);
-      this.output = <TaskBox key="0" val="0" callback={this.callbackFunction}/>
+      this.output = <TaskBox key="0" val="0" value5="0" callback={this.callbackFunction}/>
       this.state = {value: 1};
       this.jsonValues = new Map()
 
@@ -18,7 +18,7 @@ class TaskManager extends React.Component {
             this.output = []
 
             for(var i =0; i<n;i++) {
-              this.output.push(<TaskBox key={i} val={i} callback={this.callbackFunction}/>)
+              this.output.push(<TaskBox key={i} val={i} value5="0" callback={this.callbackFunction}/>)
             }
 
             this.jsonValues = new Map() //Code to correctly clear the map needs to be better written
