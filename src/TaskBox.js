@@ -1,4 +1,5 @@
 import React from 'react';
+import DistributionBox from './DistributionBox';
 
 class TaskBox extends React.Component {
     constructor(props) {
@@ -6,6 +7,7 @@ class TaskBox extends React.Component {
       this.state = {value1: this.props.value1, value2: this.props.value2, value3: this.props.value3, value4: this.props.value4, value5: this.props.value5};
 
       this.handleChange = this.handleChange.bind(this);
+      this.distCallback = this.distCallback.bind(this);
     }
 
     handleChange(event) {
@@ -31,6 +33,13 @@ class TaskBox extends React.Component {
       return "{\"name\": \"" + this.state.value1 + "\",\"duration\": " + this.state.value2 + ",\"cost\": " + this.state.value3 + ",\"resources\": \"" + this.state.value4 + "\",\"priority\": " + this.state.value5 + "}";
     }
 
+    distCallback(data) {
+      if (data[0] === "1") {
+        this.setState({value2: data[1]}, this.updateJson);
+      } else {
+        this.setState({value3: data[1]}, this.updateJson);
+      }
+    }
     
     render() {
       return (
@@ -40,9 +49,9 @@ class TaskBox extends React.Component {
               Name: 
               <input name="name" type="text" value={this.state.value1} onChange={this.handleChange}/>
               <br />Duration:
-              <input name="duration" type="text" value={this.state.value2} onChange={this.handleChange}/>
+              <DistributionBox id="1" callback={this.distCallback}/>
               <br />Cost:
-              <input name= "cost" type="text" value={this.state.value3} onChange={this.handleChange}/>
+              <DistributionBox id="2" callback={this.distCallback}/>
               <br />Priority: 
               <select name= "priority" value={this.state.value5} onChange={this.handleChange}>
                 <option value = "2">Highest</option>
