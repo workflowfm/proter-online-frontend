@@ -1,16 +1,24 @@
 import React from 'react';
 import BasicResults from './BasicResults';
+import DistributionBox from './DistributionBox';
 
 class ArrivalsBox extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {value: this.props.value, results: null};
+      this.state = {value1: this.props.value, value2: this.props.value2, value3: this.props.value3, value4: this.props.value4, results: null};
       this.handleChange = this.handleChange.bind(this);
-      this.response = ""
+      this.distCallback = this.distCallback.bind(this);
+      this.response = "";
     }
 
     handleChange(event) {
-      this.setState({value: event.target.value}, this.updateJson); 
+      if (event.target.name === "infinite") {
+        this.setState({value1: event.target.checked}, this.updateJson);
+      } else if (event.target.name === "simulationLimit") {
+        this.setState({value2: event.target.value}, this.updateJson);
+      } else if (event.target.name === "timeLimit") {
+        this.setState({value3: event.target.value}, this.updateJson);    
+      }
     }
     
     updateJson = () => {
@@ -18,43 +26,58 @@ class ArrivalsBox extends React.Component {
     }
 
     buildJson = () => {
-      return "\"numberOfRuns\": " + this.state.value;
+      let checked = false
+        if (typeof this.state.value1 !== "undefined") {
+            checked = this.state.value1
+        }
+      return "{\"infinite\": " + checked + ",\"rate\": " + this.state.value4 + ",\"simulationLimit\": " + this.state.value2 + ",\"timeLimit\": " + this.state.value3 + "}";
+    }
+
+    distCallback(data) {
+      this.setState({value4: data[1]}, this.updateJson);
     }
 
     handleSubmit = (event) => {
-      event.preventDefault()
-      var json = this.props.getFullJson()
-      alert(json)
+      event.preventDefault();
+      var json = this.props.getFullJson();
+      alert(json);
       const options = {
         method: "POST",
         body: json,
         headers: {
           'Content-Type': 'application/json',
         }
-      }
+      };
 
       //console.log(options)
 
       fetch("http://localhost:8080/API", options)
         .then(res => res.text())
-        .then(text => this.setState({results: text}))
+        .then(text => this.setState({results: text}));
     }
 
 
     render() {
       return (
         <div>
-        <form>
-          <fieldset>
-          <legend>Set Up Simulation</legend>
-          <label>
-              Number of Flows to run: 
-              <input type="text" value={this.state.value} onChange={this.handleChange}/>
-              <input type="submit" value="Run Simulations" onClick={this.handleSubmit}/>
-            </label>
-            </fieldset>
-        </form>
-        <BasicResults rawResults={this.state.results}/>
+          <form>
+            <fieldset>
+            <legend>Arrival</legend>
+            <label>
+                The arrival determines how often simulations will be started<br/>
+                Infinite Arrivals?
+                <input name="infinite" type="checkbox" value={this.state.value1} onChange={this.handleChange}/>
+                <br></br>Rate:
+                <DistributionBox id="1" callback={this.distCallback}/>
+                Simulation Limit:
+                <input name="simulationLimit" type="text" value={this.state.value2} onChange={this.handleChange}/>
+                <br></br>Time Limit:
+                <input name="timeLimit" type="text" value={this.state.value3} onChange={this.handleChange}/>
+                <input type="submit" value="Run Simulations" onClick={this.handleSubmit}/>
+              </label>
+              </fieldset>
+          </form>
+          <BasicResults rawResults={this.state.results}/>
         </div>
       );
     }
