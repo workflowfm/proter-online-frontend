@@ -1,5 +1,4 @@
 import React from 'react';
-import DistributionBox from './DistributionBox';
 
 class ResourceBox extends React.Component {
     constructor(props) {
