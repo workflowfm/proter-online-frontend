@@ -69,10 +69,12 @@ class ArrivalsBox extends React.Component {
                 <input name="infinite" type="checkbox" value={this.state.value1} onChange={this.handleChange}/>
                 <br></br>Rate:
                 <DistributionBox id="1" callback={this.distCallback}/>
-                Simulation Limit:
-                <input name="simulationLimit" type="text" value={this.state.value2} onChange={this.handleChange}/>
-                <br></br>Time Limit:
-                <input name="timeLimit" type="text" value={this.state.value3} onChange={this.handleChange}/>
+                {!this.state.value1 //This section displays the correct limit depending on whether or not the user has selected an infinite arrival
+                  ? <div>Simulation Limit:
+                  <input name="simulationLimit" type="text" value={this.state.value2} onChange={this.handleChange}/></div>
+                  : <div>Time Limit:
+                  <input name="timeLimit" type="text" value={this.state.value3} onChange={this.handleChange}/></div>
+                }
                 <input type="submit" value="Run Simulations" onClick={this.handleSubmit}/>
               </label>
               </fieldset>
