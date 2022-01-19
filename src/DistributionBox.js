@@ -49,7 +49,11 @@ class DistributionBox extends React.Component {
         if (typeof this.state.value1 !== "undefined") {
             type = this.state.value1
         }
-        return "{\"type\": \"" + type + "\",\"value1\": " + this.state.value2 + ",\"value2\": " + this.state.value3 + "}";
+        let value3 = this.state.value3
+        if (type === "C" || type =="E") {
+          value3 = "null"
+        }
+        return "{\"distType\": \"" + type + "\",\"value1\": " + this.state.value2 + ",\"value2\": " + value3 + "}";
     }
   
 

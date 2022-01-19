@@ -30,7 +30,7 @@ class ArrivalsBox extends React.Component {
         if (typeof this.state.value1 !== "undefined") {
             checked = this.state.value1
         }
-      return "{\"infinite\": " + checked + ",\"rate\": " + this.state.value4 + ",\"simulationLimit\": " + this.state.value2 + ",\"timeLimit\": " + this.state.value3 + "}";
+      return "\"infinite\": " + checked + ",\"rate\": " + this.state.value4 + ",\"simulationLimit\": " + this.state.value2 + ",\"timeLimit\": " + this.state.value3;
     }
 
     distCallback(data) {
