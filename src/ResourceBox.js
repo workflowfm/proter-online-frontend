@@ -1,4 +1,6 @@
 import React from 'react';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
 
 class ResourceBox extends React.Component {
     constructor(props) {
@@ -35,8 +37,19 @@ class ResourceBox extends React.Component {
           <label>
               Name: 
               <input name="name" type="text" value={this.state.value1} onChange={this.handleChange}/>
-              <br />Cost Per Tick:
-              <input name="costPerTick" type="text" value={this.state.value2} onChange={this.handleChange}/>
+              
+              <Tooltip
+                placement="right"
+                trigger='click'
+                overlay="This is the constant cost of a resource per time unit. Think the salary of an employee or running cost of a machine"
+                arrowContent={<div className="rc-tooltip-arrow-inner"></div>}
+              >
+              <div>
+                <br/>Cost Per Tick: [?]
+                <input name="costPerTick" type="text" value={this.state.value2} onChange={this.handleChange}/>
+              </div>
+              </Tooltip>
+
             </label>
             </fieldset>
         </form>

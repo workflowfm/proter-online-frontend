@@ -1,6 +1,9 @@
 import React from 'react';
 import BasicResults from './BasicResults';
 import DistributionBox from './DistributionBox';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
+
 
 class ArrivalsBox extends React.Component {
     constructor(props) {
@@ -65,8 +68,18 @@ class ArrivalsBox extends React.Component {
             <legend>Arrival</legend>
             <label>
                 The arrival determines how often simulations will be started<br/>
-                Infinite Arrivals?
+                <Tooltip
+                  placement="right"
+                  trigger='click'
+                  overlay="Infinite arrivals means that simulations will keep starting until the Time limit has run out"
+                  arrowContent={<div className="rc-tooltip-arrow-inner"></div>}
+                >
+                <div>
+                Infinite Arrivals? [?] 
+                </div>
+                </Tooltip>
                 <input name="infinite" type="checkbox" value={this.state.value1} onChange={this.handleChange}/>
+                
                 <br></br>Rate:
                 <DistributionBox id="1" callback={this.distCallback}/>
                 {!this.state.value1 //This section displays the correct limit depending on whether or not the user has selected an infinite arrival
@@ -75,7 +88,9 @@ class ArrivalsBox extends React.Component {
                   : <div>Time Limit:
                   <input name="timeLimit" type="text" value={this.state.value3} onChange={this.handleChange}/></div>
                 }
+
                 <input type="submit" value="Run Simulations" onClick={this.handleSubmit}/>
+
               </label>
               </fieldset>
           </form>
