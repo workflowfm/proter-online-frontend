@@ -1,3 +1,4 @@
+import { TextField, Select, MenuItem } from '@mui/material';
 import React from 'react';
 import DistributionBox from './DistributionBox';
 
@@ -46,22 +47,27 @@ class TaskBox extends React.Component {
         <form width="100px">
           <fieldset>
               <legend>Task</legend>
-              Name: 
-              <input name="name" type="text" value={this.state.value1} onChange={this.handleChange}/>
-              <br />Duration:
+              <TextField sx={{mt: 1}} name="name" label="Name" type="text" value={this.state.value1} onChange={this.handleChange}/>
+              <hr />
+              Duration:
               <DistributionBox id="1" value1="C" callback={this.distCallback}/>
+              <hr />
               Cost:
               <DistributionBox id="2" value1="C" callback={this.distCallback}/>
-              Priority: 
-              <select name= "priority" value={this.state.value5} onChange={this.handleChange}>
-                <option value = "2">Highest</option>
-                <option value = "1">High</option>
-                <option value = "0">Medium</option>
-                <option value = "-1">Low</option>
-                <option value = "-2">Lowest</option>
-              </select>
-              <br />Resources:
-              <input name="resources" type="text" value={this.state.value4} onChange={this.handleChange}/>
+              <hr />
+              Priority:<br></br>
+              <Select name= "priority" value={this.state.value5} onChange={this.handleChange}>
+              <MenuItem disabled value="">
+                  <em>Priority</em>
+                </MenuItem>
+                <MenuItem value = "2">Highest</MenuItem>
+                <MenuItem value = "1">High</MenuItem>
+                <MenuItem value = "0">Medium</MenuItem>
+                <MenuItem value = "-1">Low</MenuItem>
+                <MenuItem value = "-2">Lowest</MenuItem>
+              </Select>
+              <hr />
+              <TextField sx={{mt: 1}} name="resources" label="Resources" type="text" value={this.state.value4} onChange={this.handleChange}/>
             </fieldset>
         </form>
       );
