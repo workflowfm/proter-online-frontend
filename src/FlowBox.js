@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material';
 import React from 'react';
 
 class FlowBox extends React.Component {
@@ -27,7 +28,7 @@ class FlowBox extends React.Component {
           <fieldset>
           <legend>Flow</legend>
           <p>Defining a flow - Enter into the box below the names of each task in order seperated with -&gt;</p>
-          <input type="text" value={this.state.value} onChange={this.handleChange}/>
+          <TextField type="text" label="Flow" value={this.state.value} onChange={this.handleChange}/>
           </fieldset>
         </form>
       );
