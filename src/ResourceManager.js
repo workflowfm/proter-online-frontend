@@ -1,10 +1,19 @@
+import { Stack, Paper, TextField, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import React from 'react';
 import ResourceBox from './ResourceBox';
+
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 class ResourceManager extends React.Component {
     constructor(props) {
       super(props);
-      this.output = <ResourceBox key="0" val="0" callback={this.callbackFunction}/>
+      this.output = [<ResourceBox key="0" val="0" callback={this.callbackFunction}/>]
       this.state = {value: 1, jsonValues : []};
       this.jsonValues = new Map() //Contains the json values for each of its subcomponents (ResourceBoxes), with the subcompnents ID as the first element of a sub array
 
@@ -45,9 +54,9 @@ class ResourceManager extends React.Component {
           <form width="100px">
           <fieldset>
           <legend>Resources</legend>
-          <p>Please enter below the number of resources you need to define</p>
-          <input type="text" value={this.state.value} onChange={this.handleChange}/> <br />
-          {this.output}        
+          <Typography sx={{minWidth: 500}}>Please enter below the number of resources you need to define</Typography>
+          <TextField sx={{width: 100}} type="number" value={this.state.value} onChange={this.handleChange}/> <br />
+          <Stack direction="row">{this.output.map(item => <Item>{item}</Item>)}</Stack>        
           </fieldset>
           </form>
       );
