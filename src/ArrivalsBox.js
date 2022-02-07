@@ -30,10 +30,18 @@ class ArrivalsBox extends React.Component {
 
     buildJson = () => {
       let checked = false
-        if (typeof this.state.value1 !== "undefined") {
-            checked = this.state.value1
-        }
-      return "\"infinite\": " + checked + ",\"rate\": " + this.state.value4 + ",\"simulationLimit\": " + this.state.value2 + ",\"timeLimit\": " + this.state.value3;
+      if (typeof this.state.value1 !== "undefined") {
+          checked = this.state.value1
+      }
+      let simLim = "null"
+      if (typeof this.state.value2 !== "undefined") {
+          simLim = this.state.value2
+      }
+      let timLim = "null"
+      if (typeof this.state.value3 !== "undefined") {
+          timLim = this.state.value3
+      }
+      return "\"infinite\": " + checked + ",\"rate\": " + this.state.value4 + ",\"simulationLimit\": " + simLim + ",\"timeLimit\": " + timLim;
     }
 
     distCallback(data) {
@@ -54,7 +62,7 @@ class ArrivalsBox extends React.Component {
 
       //console.log(options)
 
-      fetch("http://localhost:8080/API", options)
+      fetch("http://127.0.0.1:8080/stream", options)
         .then(res => res.text())
         .then(text => this.setState({results: text}));
     }
@@ -94,7 +102,7 @@ class ArrivalsBox extends React.Component {
               </label>
               </fieldset>
           </form>
-          <BasicResults rawResults={this.state.results}/>
+          <p>{this.state.results}</p>
         </div>
       );
     }
