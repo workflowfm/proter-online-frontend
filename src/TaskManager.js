@@ -28,6 +28,7 @@ class TaskManager extends React.Component {
             this.output = []
 
             for(var i =0; i<n;i++) {
+              //Maybe add someting to keep the values from the existing tasks (check if its an add or remove then do that?)
               this.output.push(<TaskBox key={i} val={i} value5="0" callback={this.callbackFunction}/>)
             }
 

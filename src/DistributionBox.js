@@ -57,7 +57,7 @@ class DistributionBox extends React.Component {
         return(
           <Box>
             <Card>
-              <Select name="type" labelId='input-label-type' id="type" label="Type" value={this.state.value1} onChange={this.handleChange}>
+              <Select sx={{mt: 2}} name="type" id="type" label="Type" value={this.state.value1} onChange={this.handleChange}>
                 <MenuItem disabled value="">
                   <em>Type</em>
                 </MenuItem>
