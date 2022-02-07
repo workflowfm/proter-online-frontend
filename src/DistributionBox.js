@@ -1,5 +1,8 @@
 import React from 'react';
+import Box from '@mui/material/Box';
+import { Card, MenuItem, Select, TextField, InputLabel } from '@mui/material';
 
+//Should pass the default value of the distribution type (value1)
 class DistributionBox extends React.Component {
 
     constructor(props) {
@@ -12,17 +15,14 @@ class DistributionBox extends React.Component {
         if (this.state.value1 === "U") {
             return(
                 <div>
-                    Min:
-                    <input name="val1" type="text" value={this.state.value2} onChange={this.handleChange}/>
-                    Max:
-                    <input name="val2" type="text" value={this.state.value3} onChange={this.handleChange}/>
+                    <TextField sx={{mt: 2}} variant="outlined" label="Minimum" name="val1" value={this.state.value2} onChange={this.handleChange}/>
+                    <TextField sx={{mt: 2}} variant="outlined" label="Maximum" name="val2" value={this.state.value3} onChange={this.handleChange}/>
                 </div>
             )
         } else {
             return(
                 <div>
-                    Value:
-                    <input name="val1" type="text" value={this.state.value2} onChange={this.handleChange}/>
+                    <TextField sx={{mt: 2}} name="val1" variant="outlined" label="Value" value={this.state.value2} onChange={this.handleChange}/>
                 </div>
             )
         }
@@ -45,30 +45,29 @@ class DistributionBox extends React.Component {
     }
 
     buildJson = () => {
-        let type = "C"
-        if (typeof this.state.value1 !== "undefined") {
-            type = this.state.value1
-        }
         let value3 = this.state.value3
-        if (type === "C" || type ==="E") {
+        if (this.state.value1 !== "U") {
           value3 = "null"
         }
-        return "{\"distType\": \"" + type + "\",\"value1\": " + this.state.value2 + ",\"value2\": " + value3 + "}";
+        return "{\"distType\": \"" + this.state.value1 + "\",\"value1\": " + this.state.value2 + ",\"value2\": " + value3 + "}";
     }
   
 
     render() {
         return(
-        <form width="100px">
-          <fieldset>
-              <select name= "type" value={this.state.value1} onChange={this.handleChange}>
-                <option value = "C">Constant</option>
-                <option value = "E">Exponential</option>
-                <option value = "U">Uniform</option>
-              </select>
+          <Box>
+            <Card>
+              <Select name="type" labelId='input-label-type' id="type" label="Type" value={this.state.value1} onChange={this.handleChange}>
+                <MenuItem disabled value="">
+                  <em>Type</em>
+                </MenuItem>
+                <MenuItem value = "C">Constant</MenuItem>
+                <MenuItem value = "E">Exponential</MenuItem>
+                <MenuItem value = "U">Uniform</MenuItem>
+              </Select>
               {this.renderInputs()}
-            </fieldset>
-        </form>
+            </Card>
+          </Box>
         )
     }
 }

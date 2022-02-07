@@ -49,9 +49,9 @@ class TaskBox extends React.Component {
               Name: 
               <input name="name" type="text" value={this.state.value1} onChange={this.handleChange}/>
               <br />Duration:
-              <DistributionBox id="1" callback={this.distCallback}/>
+              <DistributionBox id="1" value1="C" callback={this.distCallback}/>
               Cost:
-              <DistributionBox id="2" callback={this.distCallback}/>
+              <DistributionBox id="2" value1="C" callback={this.distCallback}/>
               Priority: 
               <select name= "priority" value={this.state.value5} onChange={this.handleChange}>
                 <option value = "2">Highest</option>
