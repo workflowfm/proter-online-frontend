@@ -1,7 +1,7 @@
 import React from 'react';
 import BasicResults from './BasicResults';
 import DistributionBox from './DistributionBox';
-import { Checkbox, TextField } from '@mui/material';
+import { Checkbox, TextField, Tooltip } from '@mui/material';
 
 
 class ArrivalsBox extends React.Component {
@@ -74,10 +74,12 @@ class ArrivalsBox extends React.Component {
             <fieldset>
             <legend>Arrival</legend>
                 The arrival determines how often simulations will be started<br/>
-                <label>Infinite Arrivals?
-                <Checkbox name="infinite" value={this.state.value1} onChange={this.handleChange}/></label>
+                <Tooltip placement="right" title="Infinite arrivals means simulations will keep starting as per the arrival rate until the set time limit runs out">
+                  <label>Infinite Arrivals?
+                  <Checkbox name="infinite" value={this.state.value1} onChange={this.handleChange}/></label>
+                </Tooltip>
                 <hr />
-                Rate:
+                Arrival Rate:
                 <DistributionBox id="1" value1="C" callback={this.distCallback}/>
                 <hr />
                 {!this.state.value1 //This section displays the correct limit depending on whether or not the user has selected an infinite arrival
@@ -91,7 +93,7 @@ class ArrivalsBox extends React.Component {
 
               </fieldset>
           </form>
-          <p>{this.state.results}</p>
+          <BasicResults rawResults={this.state.results}/>
         </div>
       );
     }
