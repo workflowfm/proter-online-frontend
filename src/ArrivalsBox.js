@@ -89,7 +89,7 @@ class ArrivalsBox extends React.Component {
                   <TextField sx={{mt: 2}} name="timeLimit" label="Time Limit" value={this.state.value3} onChange={this.handleChange}/></div>
                 }
 
-                <input type="submit" value="Run Simulations" onClick={this.handleSubmit}/>
+                <Button sx={{mt:2}} variant="contained" onClick={this.handleSubmit}>Run Simulations</Button>
 
               </fieldset>
           </form>

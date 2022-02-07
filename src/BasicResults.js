@@ -49,7 +49,7 @@ class BasicResults extends React.Component {
             var timeTaken = "Simulation Complete in " + String(obj.end - obj.start) + "ms\n";
             return (
                 <div>
-                    {timeTaken}
+                    <Typography sx={{ml: 4}}>{timeTaken}</Typography>
                     <div style={{ height: 400, width: "100%"}}>
                     <Typography sx={{ml: 4}} variant="h4">Resource Statistics:</Typography>
                     <DataGrid
@@ -85,7 +85,7 @@ class BasicResults extends React.Component {
                 </div>
             )
         } else {
-            return "NADA"
+            return ""
         }
         
     }
@@ -116,7 +116,6 @@ class BasicResults extends React.Component {
     render() {
         return (
           <div>
-              <t2>Results:</t2>
               <p>{this.renderResults()}</p>
           </div>
         );
