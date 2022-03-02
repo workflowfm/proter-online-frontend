@@ -47,6 +47,8 @@ class BasicResults extends React.Component {
         if (rawJson != null) {
             var obj = JSON.parse(rawJson)
             var timeTaken = "Simulation Complete in " + String(obj.end - obj.start) + "ms\n";
+            var simStats = this.calculateSimStats(obj.simulations)
+            var taskStats = this.calculateTaskStats(obj.tasks)
             return (
                 <div>
                     <Typography sx={{ml: 4}}>{timeTaken}</Typography>
@@ -71,9 +73,16 @@ class BasicResults extends React.Component {
                         pageSize={5}
                         rowsPerPageOptions={[5, 10]}
                     />
+                    <div>
+                        <p>
+                            Simulation Averages - Average Duration : {simStats[0]} - 
+                            Average Delay: {simStats[1]} - 
+                            Average Cost: {simStats[2]}
+                        </p>
+                    </div>
                     </div>
                     <div style={{ height: 400, width: "100%"}}>
-                    <Typography sx={{ml: 4, mt: 8}} variant="h4">Task Statistics:</Typography>
+                    <Typography sx={{ml: 4, mt: 12}} variant="h4">Task Statistics:</Typography>
                     <DataGrid
                         sx={{ml: 4}} 
                         rows={obj.tasks}
@@ -82,12 +91,52 @@ class BasicResults extends React.Component {
                         rowsPerPageOptions={[5, 10]}
                     />
                     </div>
+                    <div>
+                        <p>
+                            Task Averages - Average Duration : {taskStats[0]} - 
+                            Average Delay: {taskStats[1]} - 
+                            Average Cost: {taskStats[2]}
+                        </p>
+                    </div>
                 </div>
             )
         } else {
             return ""
         }
         
+    }
+
+    calculateSimStats = (simulationData) => {
+        var durationTotal = 0
+        var delayTotal = 0
+        var costTotal = 0
+        for (let i = 0; i < simulationData.length; i++) {
+            durationTotal += simulationData[i].duration
+            delayTotal += simulationData[i].delay
+            costTotal+= simulationData[i].cost
+        }
+        return [
+            durationTotal / simulationData.length,
+            delayTotal / simulationData.length,
+            costTotal / simulationData.length
+        ]
+    }
+
+    calculateTaskStats = (taskData) => {
+        var durationTotal = 0
+        var delayTotal = 0
+        var costTotal = 0
+        for (let i = 0; i < taskData.length; i++) {
+            durationTotal += taskData[i].duration
+            delayTotal += taskData[i].started - taskData[i].created
+            costTotal+= taskData[i].cost
+        }
+        return [
+            durationTotal / taskData.length,
+            delayTotal / taskData.length,
+            costTotal / taskData.length
+        ]
+
     }
 
     priorityConverter = (intPriority) => {
