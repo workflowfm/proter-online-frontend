@@ -1,7 +1,7 @@
 import React from 'react';
 import BasicResults from './BasicResults';
 import DistributionBox from './DistributionBox';
-import { Checkbox, TextField, Tooltip } from '@mui/material';
+import { Checkbox, TextField, Tooltip, Button } from '@mui/material';
 
 
 class ArrivalsBox extends React.Component {

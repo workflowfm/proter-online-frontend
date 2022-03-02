@@ -40,7 +40,6 @@ class DistributionBox extends React.Component {
 
     updateJson = () => {
       const json = this.buildJson();
-      console.log(json)
       this.props.callback([this.props.id, json]);
     }
 
