@@ -61,8 +61,14 @@ class ArrivalsBox extends React.Component {
 
       //console.log(options)
 
-      fetch("http://127.0.0.1:8080/stream", options)
-        .then(res => res.text())
+      fetch("http://127.0.0.1:8080/API", options)
+        .then(res => {
+          if (res.status !== 200) {
+            return false;
+          } else {
+            return res.text()
+          }
+        })
         .then(text => this.setState({results: text}));
     }
 
@@ -93,10 +99,12 @@ class ArrivalsBox extends React.Component {
 
               </fieldset>
           </form>
+			
           <BasicResults rawResults={this.state.results}/>
         </div>
       );
     }
   }
-
+	//<BasicResults rawResults={this.state.results}/>
+	//{this.state.results}
   export default ArrivalsBox;
