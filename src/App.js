@@ -3,6 +3,7 @@ import ResourceManager from './ResourceManager';
 import FlowBox from './FlowBox';
 import ArrivalsBox from './ArrivalsBox';
 import TaskManager from './TaskManager';
+import { Stack } from '@mui/material';
 
 const jsonElements = []
 
@@ -32,6 +33,8 @@ const taskMan = <TaskManager callback={taskManagerCallback}/>
 function App() {
   return (
     <div className="App">
+      <h1>Proter-Online</h1>
+      <p>Welcome to the Proter-Online Simulator. Please enter the details of your simulation below</p>
       {resMan}
       {taskMan}
       <FlowBox callback={flowBoxCallback}/>
