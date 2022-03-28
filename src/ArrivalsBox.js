@@ -7,9 +7,17 @@ import { Checkbox, TextField, Tooltip, Button } from '@mui/material';
 class ArrivalsBox extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {value1: this.props.value, value2: this.props.value2, value3: this.props.value3, value4: this.props.value4, results: null};
+      this.state = {
+        value1: this.props.value,
+        value2: this.props.value2,
+        value3: this.props.value3,
+        value4: this.props.value4,
+        results: null,
+        mode: false
+      };
       this.handleChange = this.handleChange.bind(this);
       this.distCallback = this.distCallback.bind(this);
+      this.resultRender = this.resultRender.bind(this);
       this.response = "";
     }
 
@@ -20,6 +28,8 @@ class ArrivalsBox extends React.Component {
         this.setState({value2: event.target.value}, this.updateJson);
       } else if (event.target.name === "timeLimit") {
         this.setState({value3: event.target.value}, this.updateJson);    
+      } else if (event.target.name === "mode") {
+        this.setState({mode: !this.state.mode});
       }
     }
     
@@ -60,8 +70,15 @@ class ArrivalsBox extends React.Component {
       };
 
       //console.log(options)
+      let uri = ""
 
-      fetch("http://127.0.0.1:8080/API", options)
+      if (this.state.mode === true) {
+        uri = "http://127.0.0.1:8080/stream"
+      } else {
+        uri = "http://127.0.0.1:8080/API"
+      }
+
+      fetch(uri, options)
         .then(res => {
           if (res.status !== 200) {
             return false;
@@ -70,6 +87,18 @@ class ArrivalsBox extends React.Component {
           }
         })
         .then(text => this.setState({results: text}));
+    }
+
+    resultRender = () => {
+      if(this.state.mode === true) {
+        return (
+          <p>{this.state.results}</p>
+        )
+      } else {
+        return (
+          <BasicResults rawResults={this.state.results}/>
+        )
+      }
     }
 
 
@@ -96,11 +125,14 @@ class ArrivalsBox extends React.Component {
                 }
 
                 <Button sx={{mt:2}} variant="contained" onClick={this.handleSubmit}>Run Simulations</Button>
+                <label>Streaming Response
+                <Checkbox name="mode" value={this.state.mode} onChange={this.handleChange}/></label>
 
               </fieldset>
           </form>
-			
-          <BasicResults rawResults={this.state.results}/>
+          
+          {this.resultRender()}
+          
         </div>
       );
     }
