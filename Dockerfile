@@ -1,6 +1,8 @@
 FROM node:16
 WORKDIR /usr/app/proteronline-frontend
 
+EXPOSE 3000
+
 ADD src/ /usr/app/proteronline-frontend/src
 ADD public/ /usr/app/proteronline-frontend/public
 ADD package.json /usr/app/proteronline-frontend
