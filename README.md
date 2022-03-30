@@ -25,3 +25,5 @@ Requirements: Docker
 
 # Ports
 Regardless of setup the web server can be found at localhost:3000
+
+It makes requests to the back-end on localhost:8080 (so ensure you have a instance running). This is hardcoded in the front end but can be changed by editing the fetch commands in src/ArrivalsBox.js
