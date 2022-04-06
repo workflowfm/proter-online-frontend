@@ -24,7 +24,7 @@ function ArrivalsBoxCallback(data) {
 }
 
 function buildFinalJson() {
-  return "{ \"arrival\": {\"simulation\": {\"name\": \"Example Name\", \"flow\":{ " + jsonElements[1] + ", " + jsonElements[2] + "} }, " + jsonElements[3] + "}," + jsonElements[0] + "}"
+  return "{ \"arrivals\": [{\"simulation\": {\"name\": \"Example Name\", \"flow\":{ " + jsonElements[1] + ", " + jsonElements[2] + "} }, " + jsonElements[3] + "}]," + jsonElements[0] + "}"
 }
 
 const resMan = <ResourceManager callback={resourceManagerCallback}/>
